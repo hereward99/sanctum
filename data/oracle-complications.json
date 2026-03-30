@@ -1,0 +1,49 @@
+{
+  "tense": [
+    "A confrontation nearby is about to spill over — NPC pushes another, voices rising.",
+    "Someone is watching the exits. They leave the moment your character looks at them.",
+    "A weapon or dangerous object is visible where it shouldn't be."
+  ],
+  "celebratory": [
+    "The crowd is too loud; something important is being drowned out.",
+    "An NPC is very drunk and says something they shouldn't.",
+    "The festivities are cover for something being moved or exchanged."
+  ],
+  "deserted": [
+    "The emptiness has a reason. Signs of a hasty departure.",
+    "A single light on in a room that should be empty.",
+    "Something has been left behind that wasn't meant to be found."
+  ],
+  "chaotic": [
+    "Your character is separated from the point of interest by the crowd or commotion.",
+    "Emergency services are on their way. Time is short.",
+    "An NPC mistakes your character for someone else — dangerously so."
+  ],
+  "mournful": [
+    "Someone is grieving openly and blocks access to the area you need.",
+    "The site is connected to a recent death. Residents are reluctant to speak.",
+    "A memorial or shrine has appeared overnight. Nobody knows who placed it."
+  ],
+  "conspiratorial": [
+    "A meeting is occurring that wasn't meant to be observed.",
+    "Someone passes a note or object with careful casualness.",
+    "An NPC goes suddenly silent and gives your character a look."
+  ],
+  "predatory": [
+    "Another Kindred is here. They haven't noticed you yet.",
+    "A mortal is being slowly isolated from the group by someone.",
+    "The hunting ground is marked. Someone has been here recently."
+  ],
+  "oblivious": [
+    "The mortals here are completely unaware of the supernatural element in plain sight.",
+    "Your character's careful approach was unnecessary — nobody is paying attention.",
+    "An opportunity exists to act openly. But doing so may attract attention later."
+  ],
+  "generic": [
+    "A Resident has witnessed more than intended. They will remember.",
+    "Something at the site has changed since you last heard about it — for the worse.",
+    "An unexpected figure appears: someone who shouldn't be here.",
+    "Equipment, access, or an NPC that was available is now unavailable.",
+    "The scene ends abruptly. Something has spooked the site."
+  ]
+}

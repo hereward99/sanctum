@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Mortal Names — Vampire: the Masquerade</title>
+<link rel="stylesheet" href="../shared/style.css">
+<style>
+  .seg {
+    display: flex;
+    gap: 6px;
+    background: var(--panel-light);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 1.4rem;
+  }
+  .seg button {
+    flex: 1;
+    padding: 9px 4px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    background: transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    color: var(--text-dim);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .seg button.active {
+    background: var(--blood-pale);
+    border-color: rgba(139,0,0,0.6);
+    color: var(--ivory);
+  }
+  .seg button:active { transform: scale(0.96); }
+
+  .name-display {
+    text-align: center;
+    padding: 1.8rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--panel-light);
+    margin-bottom: 1.2rem;
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+  .name-display::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+  }
+  .name-display::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+  }
+  .name-first {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+    font-weight: 700;
+    color: var(--ivory);
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(201,168,76,0.25);
+  }
+  .name-last {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+  }
+  .name-placeholder {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+  .name-gender-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 4px;
+    border: 1px solid var(--border);
+    padding: 2px 10px;
+    border-radius: 20px;
+  }
+  .name-flash { animation: nameReveal 0.3s ease both; }
+  @keyframes nameReveal {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .btn-row { display: flex; gap: 0.6rem; }
+
+  .history-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(58,40,48,0.5);
+  }
+  .history-row:last-child { border-bottom: none; }
+  .history-name   { font-family: 'Cinzel', serif; font-size: 0.75rem; color: var(--ivory); }
+  .history-gender {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="back-nav">
+    <span class="back-nav-title">Mortal Names</span>
+    <a class="back-btn" href="../index.html">← The Sanctum</a>
+  </nav>
+
+  <div class="card" id="main-card">
+    <div class="card-title">✦ Character Identity</div>
+    <div class="loading" id="loading-msg">Consulting the registry…</div>
+
+    <div id="app-content" style="display:none">
+      <div class="seg" id="gender-seg">
+        <button class="active" onclick="setGender('male', this)">Men</button>
+        <button onclick="setGender('female', this)">Women</button>
+        <button onclick="setGender('nonbinary', this)">Non-binary</button>
+      </div>
+
+      <div class="name-display" id="name-display">
+        <div class="name-placeholder">Awaiting the blood…</div>
+      </div>
+
+      <button class="btn btn-primary" onclick="generate()" style="margin-bottom:0.6rem">⚔ Reveal a Name</button>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="newFirst()">↺ New First Name</button>
+        <button class="btn btn-secondary" onclick="newLast()">↺ New Surname</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card animate-in" id="history-card" style="display:none; margin-top:1rem;">
+    <div class="card-title">📜 Name Registry</div>
+    <div id="history-list"></div>
+  </div>
+
+</div>
+<script>
+let namesData = null;
+let gender    = 'male';
+let curFirst  = '';
+let curLast   = '';
+const history = [];
+
+const genderLabels = { male: 'Male', female: 'Female', nonbinary: 'Non-binary' };
+
+function haptic(t) {
+  if (!navigator.vibrate) return;
+  if (t === 'generate') navigator.vibrate([10,30,20]);
+  else navigator.vibrate(t === 'swap' ? 15 : 8);
+}
+
+fetch('../data/names.json')
+  .then(r => r.json())
+  .then(data => {
+    namesData = data;
+    document.getElementById('loading-msg').style.display = 'none';
+    document.getElementById('app-content').style.display = '';
+  })
+  .catch(() => {
+    document.getElementById('loading-msg').textContent = 'Failed to load names. Please refresh.';
+  });
+
+function rand(arr) { return arr[Math.floor(Math.random()*arr.length)]; }
+
+function setGender(g, btn) {
+  haptic('tab');
+  gender = g;
+  document.querySelectorAll('.seg button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function generate() {
+  if (!namesData) return;
+  haptic('generate');
+  curFirst = rand(namesData[gender]);
+  curLast  = rand(namesData.surnames);
+  showName();
+  addHistory();
+}
+
+function newFirst() {
+  if (!namesData) return;
+  if (!curLast) { generate(); return; }
+  haptic('swap');
+  curFirst = rand(namesData[gender]);
+  showName();
+  updateLastHistory();
+}
+
+function newLast() {
+  if (!namesData) return;
+  if (!curFirst) { generate(); return; }
+  haptic('swap');
+  curLast = rand(namesData.surnames);
+  showName();
+  updateLastHistory();
+}
+
+function showName() {
+  document.getElementById('name-display').innerHTML =
+    '<div class="name-first name-flash">' + curFirst + '</div>' +
+    '<div class="name-last name-flash" style="animation-delay:0.05s">' + curLast + '</div>' +
+    '<div class="name-gender-tag name-flash" style="animation-delay:0.1s">' + genderLabels[gender] + '</div>';
+}
+
+function addHistory() {
+  history.unshift({first:curFirst, last:curLast, gender:genderLabels[gender]});
+  if (history.length > 20) history.pop();
+  renderHistory();
+}
+
+function updateLastHistory() {
+  if (history.length > 0) {
+    history[0] = {first:curFirst, last:curLast, gender:genderLabels[gender]};
+    renderHistory();
+  }
+}
+
+function renderHistory() {
+  if (history.length < 2) return;
+  document.getElementById('history-card').style.display = '';
+  document.getElementById('history-list').innerHTML = history.slice(1,10).map(h =>
+    '<div class="history-row">' +
+    '<span class="history-name">' + h.first + ' ' + h.last + '</span>' +
+    '<span class="history-gender">' + h.gender + '</span>' +
+    '</div>'
+  ).join('');
+}
+</script>
+</body>
+</html>
