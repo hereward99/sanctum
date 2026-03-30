@@ -1663,17 +1663,17 @@ h1 span { color: var(--blood-light); }
   <div class="divider"></div>
 
   <!-- Academic -->
-  <div class="section-header" onclick="VTM_Words.toggleSection('academic')">
-    <span class="section-name">📜 Academic</span>
+  <div class="section-header" onclick="VTM_Words.toggleSection('academic and cultural')">
+    <span class="section-name">📜 Academic &amp; Cultural</span>
     <div style="display:flex;align-items:center;gap:8px">
       <div class="section-mini-btns" onclick="event.stopPropagation()">
-        <button class="mini-btn" onclick="VTM_Words.sectionSelect('academic',true)">All</button>
-        <button class="mini-btn" onclick="VTM_Words.sectionSelect('academic',false)">None</button>
+        <button class="mini-btn" onclick="VTM_Words.sectionSelect('academic and cultural',true)">All</button>
+        <button class="mini-btn" onclick="VTM_Words.sectionSelect('academic and cultural',false)">None</button>
       </div>
-      <span class="section-arrow open" id="arrow-academic">▼</span>
+      <span class="section-arrow open" id="arrow-academic and cultural">▼</span>
     </div>
   </div>
-  <div class="checkbox-group" id="group-academic"></div>
+  <div class="checkbox-group" id="group-academic and cultural"></div>
   <div class="divider"></div>
 
   <!-- Genre -->
@@ -1955,14 +1955,16 @@ const wordLists = {
     adjectives: ['big','small','tall','short','long','wide','narrow','thick','thin','heavy','light','fast','slow','hot','cold','warm','cool','dry','wet','clean','dirty','new','old','young','fresh','stale','sweet','bitter','sour','salty','spicy','mild','strong','weak','hard','soft','smooth','rough','sharp','dull','bright','dark','loud','quiet','happy','sad','angry','calm','excited','bored'],
     adverbs: ['quickly','slowly','carefully','loudly','quietly','softly','hardly','easily','suddenly','gradually','immediately','recently','finally','usually','always','never','sometimes','often','rarely','frequently','clearly','obviously','definitely','probably','possibly','certainly','absolutely','completely','partially','entirely','mainly','mostly','especially','particularly','generally','specifically','exactly','approximately','directly','indirectly','forward','backward','upward','downward','inward','outward','together','apart','nearby','far']
   },
-  academic: {
-    geography: ['mountain','river','ocean','desert','forest','valley','plateau','peninsula','island','continent','climate','weather','temperature','precipitation','erosion','glacier','volcano','earthquake','latitude','longitude','equator','hemisphere','tropics','arctic','coastline','delta','canyon','prairie','tundra','savanna','reef','strait','bay','cape','ridge','summit','basin','watershed','terrain','landscape','elevation','altitude','migration','population','urban','rural','metropolitan','suburban','boundary','territory'],
+  'academic and cultural': {
+    'geography and travel': ['journey','destination','passport','border','customs','visa','luggage','hostel','landmark','monument','ruins','heritage','tourism','expedition','pilgrimage','route','itinerary','departure','arrival','layover','detour','backpack','souvenir','local','foreigner','culture shock','jet lag','guidebook','map','compass','altitude','latitude','longitude','climate','coastline','harbor','peninsula','island','continent','mountain','valley','desert','jungle','glacier','volcano','canyon','plateau','savanna','tundra','reef','delta','strait'],
     science: ['atom','molecule','element','compound','reaction','energy','force','motion','gravity','mass','weight','density','volume','pressure','temperature','heat','light','sound','wave','frequency','amplitude','spectrum','radiation','particle','electron','proton','neutron','nucleus','cell','tissue','organ','system','organism','species','evolution','genetics','chromosome','gene','protein','enzyme','bacteria','virus','fungi','plant','animal','ecosystem','habitat','biodiversity','photosynthesis','respiration'],
     philosophy: ['truth','reality','existence','being','knowledge','wisdom','belief','doubt','certainty','reason','logic','argument','premise','conclusion','fallacy','ethics','morality','virtue','justice','rights','duty','freedom','determinism','consciousness','mind','soul','spirit','identity','self','other','society','culture','tradition','progress','change','permanence','causation','purpose','meaning','value','beauty','art','aesthetic','experience','perception','intuition','emotion','reason','faith','religion'],
     literature: ['novel','poem','story','drama','character','plot','theme','setting','narrator','dialogue','monologue','metaphor','simile','symbol','irony','imagery','rhythm','rhyme','meter','stanza','verse','prose','fiction','nonfiction','genre','style','tone','mood','voice','perspective','conflict','resolution','climax','exposition','development','conclusion','tragedy','comedy','satire','allegory','epic','ballad','sonnet','haiku','essay','biography','memoir','journal','critique','analysis'],
     art: ['painting','sculpture','drawing','sketch','canvas','brush','palette','color','hue','shade','tint','tone','contrast','balance','harmony','proportion','perspective','composition','form','shape','line','texture','pattern','design','style','movement','impression','expression','abstract','realistic','portrait','landscape','still-life','mural','fresco','watercolor','oil','acrylic','charcoal','pastel','ceramic','bronze','marble','clay','gallery','museum','exhibition','artist','masterpiece','technique'],
     mathematics: ['number','digit','integer','fraction','decimal','percent','ratio','proportion','equation','formula','variable','constant','function','graph','coordinate','axis','origin','slope','intercept','angle','degree','triangle','square','rectangle','circle','diameter','radius','circumference','area','perimeter','volume','surface','parallel','perpendicular','symmetry','congruent','similar','theorem','proof','logic','set','sequence','series','sum','product','quotient','remainder','prime','composite','factor'],
-    drama: ['theater','stage','actor','actress','character','role','performance','dialogue','monologue','soliloquy','scene','act','play','script','director','producer','audience','costume','makeup','lighting','sound','music','backdrop','scenery','props','rehearsal','audition','casting','improvisation','gesture','expression','voice','projection','timing','rhythm','tension','conflict','resolution','comedy','tragedy','drama','farce','satire','musical','opera','ballet','dance','movement','choreography'],
+    'drama and film': ['screenplay','director','cinematography','close-up','montage','dissolve','cut','frame','shot','scene','act','rehearsal','audition','casting','improvisation','costume','makeup','lighting','soundtrack','score','dialogue','monologue','character','protagonist','antagonist','plot','subplot','climax','denouement','thriller','noir','blockbuster','indie','premiere','festival','sequel','remake','cameo','trailer','credits','studio','crew','stage','screen','performance','projection','streaming','animation','documentary'],
+    sport: ['match','tournament','league','championship','trophy','medal','podium','athlete','coach','referee','spectator','stadium','arena','pitch','court','track','lane','sprint','endurance','strategy','teamwork','rivalry','underdog','comeback','overtime','penalty','foul','tackle','score','goal','point','serve','volley','knockout','submission','draft','transfer','contract','sponsor','broadcast','highlight','replay','season','training','warmup','recovery','injury','record','title','dynasty'],
+    music: ['melody','harmony','rhythm','tempo','beat','bass','treble','chord','riff','hook','verse','chorus','bridge','intro','outro','album','single','track','mix','master','producer','session','studio','live','acoustic','electric','amplifier','synthesizer','sample','loop','vinyl','streaming','playlist','classical','jazz','blues','soul','funk','gospel','folk','country','rock','punk','metal','hip-hop','rap','R&B','pop','disco','electronic','house','techno','ambient','indie','grunge'],
     general: ['good','bad','right','wrong','true','false','yes','no','here','there','now','then','today','tomorrow','yesterday','early','late','before','after','first','last','next','more','less','most','least','all','some','none','every','each','other','same','different','similar','equal','between','among','through','around','above','below','inside','outside','front','back','left','right','up','down']
   },
   genre: {
@@ -1990,7 +1992,7 @@ const categoryLabels = {
 
 const defaultChecked = {
   grammatical: ['nouns','verbs','adjectives'],
-  academic: ['general'],
+  'academic and cultural': ['general'],
   genre: [],
   resonance: []
 };
@@ -2025,7 +2027,7 @@ function buildSection(sectionName) {
   });
 }
 
-['grammatical','academic','genre','resonance'].forEach(buildSection);
+['grammatical','academic and cultural','genre','resonance'].forEach(buildSection);
 
 // ── Toggle sections ───────────────────────────────────────────
 function toggleSection(name) {
