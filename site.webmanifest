@@ -1,7 +1,7 @@
 {
 "name":"The Sanctum",
 "short_name":"Sanctum",
-"start_url": "/",
+"start_url": "/sanctum/",
 "display":"standalone",
 "icons":[
 {
