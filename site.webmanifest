@@ -1,7 +1,9 @@
 {
+"id": "/sanctum/",
 "name":"The Sanctum",
 "short_name":"Sanctum",
-"start_url": "/sanctum/",
+"start_url": "./",
+"scope": "/sanctum/",
 "display":"standalone",
 "icons":[
 {
