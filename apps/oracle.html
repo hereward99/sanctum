@@ -67,28 +67,51 @@
   .dice-btn:hover::before { transform: scaleY(1); }
   .dice-btn.active { border-color: var(--blood-light); color: var(--ivory); background: var(--blood); }
 
-  .mood-grid {
+  .resonance-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
+  .resonance-quadrant {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .resonance-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 5px 10px 4px;
+    border-bottom: 1px solid var(--border);
+    display: block;
+  }
+  .resonance-label.sanguine   { color: #c9d4b5; background: rgba(180,200,130,0.06); }
+  .resonance-label.choleric   { color: #e09070; background: rgba(200,100,60,0.06); }
+  .resonance-label.phlegmatic { color: #90b8c8; background: rgba(80,140,180,0.06); }
+  .resonance-label.melancholy { color: #b0a8c8; background: rgba(120,100,180,0.06); }
+
+  .mood-pair { display: flex; flex-direction: column; }
   .mood-btn {
     background: transparent;
-    border: 1px solid var(--border);
+    border: none;
+    border-bottom: 1px solid var(--border);
     color: var(--ivory-dim);
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.95rem;
+    font-size: clamp(0.8rem, 3.5vw, 0.95rem);
     font-style: italic;
-    padding: 10px 12px;
+    padding: 9px 10px;
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: left;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
+    width: 100%;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }
-  .mood-btn:hover { border-color: var(--gold); color: var(--ivory); }
-  .mood-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(184,150,62,0.06); }
+  .mood-btn:last-child { border-bottom: none; }
+  .mood-btn:hover  { color: var(--ivory); background: rgba(255,255,255,0.03); }
+  .mood-btn.active { color: var(--gold);  background: rgba(184,150,62,0.08); }
 
   .roll-area { text-align: center; margin: 44px 0; }
   .roll-btn {
@@ -287,15 +310,44 @@
   <!-- Mood -->
   <div class="card" style="margin-bottom:1rem">
     <div class="section-label">II. Site Mood (optional)</div>
-    <div class="mood-grid">
-      <button class="mood-btn" onclick="setMood('tense',this)">Tense</button>
-      <button class="mood-btn" onclick="setMood('celebratory',this)">Celebratory</button>
-      <button class="mood-btn" onclick="setMood('deserted',this)">Deserted</button>
-      <button class="mood-btn" onclick="setMood('chaotic',this)">Chaotic</button>
-      <button class="mood-btn" onclick="setMood('mournful',this)">Mournful</button>
-      <button class="mood-btn" onclick="setMood('conspiratorial',this)">Conspiratorial</button>
-      <button class="mood-btn" onclick="setMood('predatory',this)">Predatory</button>
-      <button class="mood-btn" onclick="setMood('oblivious',this)">Oblivious</button>
+    <div class="resonance-grid">
+
+      <!-- Sanguine: celebratory, happy, enthusiastic -->
+      <div class="resonance-quadrant">
+        <span class="resonance-label sanguine">Sanguine</span>
+        <div class="mood-pair">
+          <button class="mood-btn" onclick="setMood('celebratory',this)">Celebratory</button>
+          <button class="mood-btn" onclick="setMood('revelrous',this)">Revelrous</button>
+        </div>
+      </div>
+
+      <!-- Choleric: angry, tense, passionate -->
+      <div class="resonance-quadrant">
+        <span class="resonance-label choleric">Choleric</span>
+        <div class="mood-pair">
+          <button class="mood-btn" onclick="setMood('tense',this)">Tense</button>
+          <button class="mood-btn" onclick="setMood('chaotic',this)">Chaotic</button>
+        </div>
+      </div>
+
+      <!-- Phlegmatic: lazy, apathetic, calm -->
+      <div class="resonance-quadrant">
+        <span class="resonance-label phlegmatic">Phlegmatic</span>
+        <div class="mood-pair">
+          <button class="mood-btn" onclick="setMood('deserted',this)">Deserted</button>
+          <button class="mood-btn" onclick="setMood('subdued',this)">Subdued</button>
+        </div>
+      </div>
+
+      <!-- Melancholy: depressed, intellectual, scared -->
+      <div class="resonance-quadrant">
+        <span class="resonance-label melancholy">Melancholy</span>
+        <div class="mood-pair">
+          <button class="mood-btn" onclick="setMood('mournful',this)">Mournful</button>
+          <button class="mood-btn" onclick="setMood('predatory',this)">Predatory</button>
+        </div>
+      </div>
+
     </div>
   </div>
 
